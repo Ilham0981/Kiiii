@@ -7,7 +7,7 @@ def send_udp(max_bytes):
         udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
         # Mengganti alamat dan port sesuai kebutuhan (contoh: alamat IP dan port)
-        server_address = ('158.220.106.212', 80)
+        server_address = ('38.242.194.12', 80)
 
         # Membuat data yang akan dikirim (misalnya, mengisi data dengan karakter 'A' sebanyak max_bytes)
         data_to_send = b'A' * max_bytes
